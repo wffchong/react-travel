@@ -2,5 +2,6 @@ import Footer from './Footer'
 import Header from './Header'
 import Carousel from './Carousel'
 import SideMenu from './SideMenu'
+import ProductCollection from './ProductCollection'
 
-export { Footer, Header, Carousel, SideMenu }
+export { Footer, Header, Carousel, SideMenu, ProductCollection }
