@@ -3,23 +3,39 @@ import { Typography, Dropdown, Menu, Button, Layout, Input } from 'antd'
 import { GlobalOutlined } from '@ant-design/icons'
 import styles from './header.module.css'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootStateType } from '../../store'
+import { changeLanguageAction } from '../../store/actions/language'
 
 const Header: React.FC = () => {
     const navigate = useNavigate()
+    const { t } = useTranslation()
+    const dispatch = useDispatch()
+    const languageState = useSelector((state: RootStateType) => state.languageReducer)
+    const { languageList } = languageState
+
+    const changeLanguage = e => {
+        dispatch(changeLanguageAction(e.key))
+    }
+
     return (
         <div className={styles['app-header']}>
             {/* top-header */}
             <div className={styles['top-header']}>
                 <div className={styles.inner}>
-                    <Typography.Text>让旅游更幸福</Typography.Text>
+                    <Typography.Text>{t('header.slogan')}</Typography.Text>
                     <Dropdown.Button
                         style={{ marginLeft: 15 }}
                         icon={<GlobalOutlined />}
                         overlay={
                             <Menu
+                                onClick={e => changeLanguage(e)}
                                 items={[
-                                    { key: 1, label: '中文' },
-                                    { key: 2, label: '英文' }
+                                    ...languageList.map(l => {
+                                        return { key: l.code, label: l.name }
+                                    }),
+                                    { key: 'new', label: t('header.add_new_language') }
                                 ]}
                             />
                         }
@@ -45,22 +61,22 @@ const Header: React.FC = () => {
                 mode='horizontal'
                 className={styles['main-menu']}
                 items={[
-                    { key: '1', label: '旅游首页' },
-                    { key: '2', label: '周末游' },
-                    { key: '3', label: '跟团游' },
-                    { key: '4', label: '自由行' },
-                    { key: '5', label: '私家团' },
-                    { key: '6', label: '邮轮' },
-                    { key: '7', label: '酒店+景点' },
-                    { key: '8', label: '当地玩乐' },
-                    { key: '9', label: '主题游' },
-                    { key: '10', label: '定制游' },
-                    { key: '11', label: '游学' },
-                    { key: '12', label: '签证' },
-                    { key: '13', label: '企业游' },
-                    { key: '14', label: '高端游' },
-                    { key: '15', label: '爱玩户外' },
-                    { key: '16', label: '保险' }
+                    { key: '1', label: t('header.home_page') },
+                    { key: '2', label: t('header.weekend') },
+                    { key: '3', label: t('header.group') },
+                    { key: '4', label: t('header.backpack') },
+                    { key: '5', label: t('header.private') },
+                    { key: '6', label: t('header.cruise') },
+                    { key: '7', label: t('header.hotel') },
+                    { key: '8', label: t('header.local') },
+                    { key: '9', label: t('header.theme') },
+                    { key: '10', label: t('header.custom') },
+                    { key: '11', label: t('header.study') },
+                    { key: '12', label: t('header.visa') },
+                    { key: '13', label: t('header.enterprise') },
+                    { key: '14', label: t('header.high_end') },
+                    { key: '15', label: t('header.outdoor') },
+                    { key: '16', label: t('header.insurance') }
                 ]}
             />
         </div>
