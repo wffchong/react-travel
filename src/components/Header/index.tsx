@@ -4,15 +4,15 @@ import { GlobalOutlined } from '@ant-design/icons'
 import styles from './header.module.css'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootStateType } from '../../store'
+import { useDispatch } from 'react-redux'
+import { useSelector } from '../../store/hooks/useSelector'
 import { changeLanguageAction } from '../../store/actions/language'
 
 const Header: React.FC = () => {
     const navigate = useNavigate()
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const languageState = useSelector((state: RootStateType) => state.languageReducer)
+    const languageState = useSelector(state => state.languageReducer)
     const { languageList } = languageState
 
     const changeLanguage = e => {
