@@ -1,11 +1,17 @@
-import { RouteComponentProps } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-interface MatchParams {
+type MatchParams = {
     touristRouteId: string
+    other: string
 }
 
-const DetailPage: React.FC<RouteComponentProps<MatchParams>> = props => {
-    return <h1>路游路线详情页面, 路线ID: {props.match.params.touristRouteId}</h1>
+const DetailPage: React.FC = () => {
+    const params = useParams<MatchParams>()
+    return (
+        <h1>
+            路游路线详情页面, 路线ID:{params.touristRouteId} {params.other}
+        </h1>
+    )
 }
 
 export default DetailPage
