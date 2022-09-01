@@ -5,6 +5,8 @@ import App from './App'
 import './i18n'
 import { Provider } from 'react-redux'
 import store from './store'
+import axios from 'axios'
+axios.defaults.headers['x-icode'] = '887E07F53CDA6854'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 

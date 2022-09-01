@@ -4,5 +4,7 @@ import Carousel from './Carousel'
 import SideMenu from './SideMenu'
 import ProductCollection from './ProductCollection'
 import BusinessPartners from './BusinessPartners'
+import ProductIntro from './ProductIntro'
+import ProductComments from './ProductComments'
 
-export { Footer, Header, Carousel, SideMenu, ProductCollection, BusinessPartners }
+export { Footer, Header, Carousel, SideMenu, ProductCollection, BusinessPartners, ProductIntro, ProductComments }

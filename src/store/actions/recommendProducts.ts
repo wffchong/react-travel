@@ -51,11 +51,7 @@ export type RootThunkAction = ThunkAction<void, RootStateType, unknown, Recommen
 export const getRecommendProducts = (): RootThunkAction => {
     return async dispatch => {
         dispatch(recommendProductStartAction())
-        const { data } = await axios.get('http://123.56.149.216:8080/api/productCollections', {
-            headers: {
-                'x-icode': '887E07F53CDA6854'
-            }
-        })
+        const { data } = await axios.get('http://123.56.149.216:8080/api/productCollections')
         dispatch(recommendProductSuccessAction(data))
     }
 }
