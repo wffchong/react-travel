@@ -1,9 +1,18 @@
-import { legacy_createStore as createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { rootReducer } from './reducers'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import languageReducer from './modules/language'
+import recommendProductsReducer from './modules/recommendProducts'
+import productDetailReducer from './modules/productDetail'
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+const rootReducer = combineReducers({
+    language: languageReducer,
+    recommendProducts: recommendProductsReducer,
+    productDetail: productDetailReducer
+})
+
+const store = configureStore({
+    reducer: rootReducer,
+    devTools: true
+})
 
 export type RootStateType = ReturnType<typeof store.getState>
 

@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useSelector } from '../../store/hooks/useSelector'
-import { changeLanguageAction } from '../../store/actions/language'
+import { changeLanguageAction } from '../../store/modules/language'
 
 const Header: React.FC = () => {
     const navigate = useNavigate()
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const languageState = useSelector(state => state.languageReducer)
+    const languageState = useSelector(state => state.language)
     const { languageList } = languageState
 
     const changeLanguage = e => {

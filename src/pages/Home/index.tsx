@@ -6,7 +6,7 @@ import sideImage2 from '../../assets/images/sider_2019_02-04.png'
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { getRecommendProducts } from '../../store/actions/recommendProducts'
+import { getRecommendProducts } from '../../store/modules/recommendProducts'
 import { useSelector } from '../../store/hooks/useSelector'
 import { useEffect } from 'react'
 
@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
     }, [dispatch])
 
     const { productList, loading, error } = useSelector(state => state.recommendProducts)
-
+    
     if (loading) {
         return (
             <Spin
