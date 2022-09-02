@@ -1,6 +1,7 @@
 import HomePage from './Home'
-import SignIn from './SignIn'
-import Register from './Register'
-import Detail from './Detail'
+import SignInPage from './SignIn'
+import RegisterPage from './Register'
+import DetailPage from './Detail'
+import Search from './Search'
 
-export { HomePage, SignIn, Register, Detail }
+export { HomePage, SignInPage, RegisterPage, DetailPage, Search }

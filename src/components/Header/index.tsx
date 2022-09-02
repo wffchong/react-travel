@@ -7,16 +7,22 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useSelector } from '../../store/hooks/useSelector'
 import { changeLanguageAction } from '../../store/modules/language'
+import { changeSearchValue } from '../../store/modules/productSearch'
 
 const Header: React.FC = () => {
     const navigate = useNavigate()
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const languageState = useSelector(state => state.language)
-    const { languageList } = languageState
+
+    const { languageList } = useSelector(state => state.language)
+    const { searchValue } = useSelector(state => state.productSearch)
 
     const changeLanguage = e => {
         dispatch(changeLanguageAction(e.key))
+    }
+
+    const handleSearch = (value: string) => {
+        navigate(`/search/${value}`)
     }
 
     return (
@@ -55,7 +61,13 @@ const Header: React.FC = () => {
                         React旅游网
                     </Typography.Title>
                 </span>
-                <Input.Search placeholder='请输入旅游目的地、主题、或关键字' className={styles['search-input']} />
+                <Input.Search
+                    placeholder='请输入旅游目的地、主题、或关键字'
+                    className={styles['search-input']}
+                    onSearch={handleSearch}
+                    value={searchValue}
+                    onChange={e => dispatch(changeSearchValue(e.target.value))}
+                />
             </Layout.Header>
             <Menu
                 mode='horizontal'
