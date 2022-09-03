@@ -8,6 +8,13 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from '../../store/hooks/useSelector'
 import { changeLanguageAction } from '../../store/modules/language'
 import { changeSearchValue } from '../../store/modules/productSearch'
+import jwt_decode, { JwtPayload as DefaultJwtPayload } from 'jwt-decode'
+import { useEffect, useState } from 'react'
+import { signOut } from '../../store/modules/user'
+
+interface JwtPayload extends DefaultJwtPayload {
+    username: string
+}
 
 const Header: React.FC = () => {
     const navigate = useNavigate()
@@ -16,6 +23,9 @@ const Header: React.FC = () => {
 
     const { languageList } = useSelector(state => state.language)
     const { searchValue } = useSelector(state => state.productSearch)
+    const token = useSelector(state => state.user.token)
+
+    const [username, setUsername] = useState('')
 
     const changeLanguage = e => {
         dispatch(changeLanguageAction(e.key))
@@ -23,6 +33,17 @@ const Header: React.FC = () => {
 
     const handleSearch = (value: string) => {
         navigate(`/search/${value}`)
+    }
+
+    useEffect(() => {
+        if (token) {
+            const t = jwt_decode<JwtPayload>(token)
+            setUsername(t.username)
+        }
+    }, [token])
+
+    const onLogout = () => {
+        dispatch(signOut())
     }
 
     return (
@@ -48,10 +69,21 @@ const Header: React.FC = () => {
                     >
                         语言
                     </Dropdown.Button>
-                    <Button.Group className={styles['button-group']}>
-                        <Button onClick={() => navigate('/register')}>注册</Button>
-                        <Button onClick={() => navigate('/signIn')}>登陆</Button>
-                    </Button.Group>
+                    {token ? (
+                        <Button.Group className={styles['button-group']}>
+                            <span>
+                                {t('header.welcome')}
+                                <Typography.Text strong>{username}</Typography.Text>
+                            </span>
+                            <Button>{t('header.shoppingCart')}</Button>
+                            <Button onClick={onLogout}>{t('header.signOut')}</Button>
+                        </Button.Group>
+                    ) : (
+                        <Button.Group className={styles['button-group']}>
+                            <Button onClick={() => navigate('/register')}>{t('header.register')}</Button>
+                            <Button onClick={() => navigate('/signIn')}>{t('header.signin')}</Button>
+                        </Button.Group>
+                    )}
                 </div>
             </div>
             <Layout.Header className={styles['main-header']}>

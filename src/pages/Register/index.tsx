@@ -1,4 +1,6 @@
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import UserLayout from '../../layouts/UserLayout'
 import styles from './RegisterPage.module.css'
 
@@ -11,8 +13,19 @@ const tailLayout = {
 }
 
 const RegisterPage: React.FC = () => {
-    const onFinish = (values: any) => {
-        console.log('Success:', values)
+    const navigate = useNavigate()
+
+    const onFinish = async (values: any) => {
+        try {
+            await axios.post('http://123.56.149.216:8080/auth/register', {
+                email: values.username,
+                password: values.password,
+                confirmPassword: values.confirm
+            })
+            navigate('/signIn')
+        } catch (error) {
+            alert('注册失败!!!')
+        }
     }
 
     const onFinishFailed = (errorInfo: any) => {
@@ -45,8 +58,24 @@ const RegisterPage: React.FC = () => {
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item name='remember' valuePropName='checked' {...tailLayout}>
-                    <Checkbox>Remember me</Checkbox>
+                <Form.Item
+                    label='Confirm Password'
+                    name='confirm'
+                    hasFeedback
+                    rules={[
+                        { required: true, message: 'Please input your confirm password!' },
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                    return Promise.resolve()
+                                } else {
+                                    return Promise.reject('密码确认不一致！')
+                                }
+                            }
+                        })
+                    ]}
+                >
+                    <Input.Password />
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>

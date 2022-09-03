@@ -3,12 +3,14 @@ import languageReducer from './modules/language'
 import recommendProductsReducer from './modules/recommendProducts'
 import productDetailReducer from './modules/productDetail'
 import productSearchReducer from './modules/productSearch'
+import userReducer from './modules/user'
 
 const rootReducer = combineReducers({
     language: languageReducer,
     recommendProducts: recommendProductsReducer,
     productDetail: productDetailReducer,
-    productSearch: productSearchReducer
+    productSearch: productSearchReducer,
+    user: userReducer
 })
 
 const store = configureStore({
