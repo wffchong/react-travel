@@ -6,6 +6,7 @@ import { Header, Footer, ProductList } from '../../components'
 import { FilterArea } from '../../components/Filter/FilterArea'
 import { useSelector } from '../../store/hooks/useSelector'
 import { searchProduct } from '../../store/modules/productSearch'
+import MainLayout from '../../layouts/MainLayout'
 
 import styles from './SearchPage.module.css'
 
@@ -53,8 +54,7 @@ const SearchPage: React.FC = () => {
     }
 
     return (
-        <>
-            <Header />
+        <MainLayout>
             <div className={styles['page-content']}>
                 {/* 分类过滤器 */}
                 <div className={styles['product-list-container']}>
@@ -65,10 +65,8 @@ const SearchPage: React.FC = () => {
                     <ProductList data={productList} paging={pagination} onPageChange={onPageChange} />
                 </div>
             </div>
-            <Footer />
-        </>
+        </MainLayout>
     )
 }
 
 export default SearchPage
- 

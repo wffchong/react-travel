@@ -1,6 +1,6 @@
 import { Row, Col, Typography, Spin } from 'antd'
 import styles from './HomePage.module.css'
-import { Carousel, SideMenu, ProductCollection, BusinessPartners, Header, Footer } from '../../components'
+import { Carousel, SideMenu, ProductCollection, BusinessPartners } from '../../components'
 import sideImage from '../../assets/images/sider_2019_12-09.png'
 import sideImage2 from '../../assets/images/sider_2019_02-04.png'
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png'
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { getRecommendProducts } from '../../store/modules/recommendProducts'
 import { useSelector } from '../../store/hooks/useSelector'
 import { useEffect } from 'react'
+import MainLayout from '../../layouts/MainLayout'
 
 const HomePage: React.FC = () => {
     const { t } = useTranslation()
@@ -19,7 +20,7 @@ const HomePage: React.FC = () => {
     }, [dispatch])
 
     const { productList, loading, error } = useSelector(state => state.recommendProducts)
-    
+
     if (loading) {
         return (
             <Spin
@@ -40,9 +41,7 @@ const HomePage: React.FC = () => {
     }
 
     return (
-        <>
-            <Header />
-            {/* content */}
+        <MainLayout>
             <div className={styles['page-content']}>
                 <Row style={{ marginTop: 20 }}>
                     <Col span={8}>
@@ -82,8 +81,7 @@ const HomePage: React.FC = () => {
 
                 <BusinessPartners />
             </div>
-            <Footer />
-        </>
+        </MainLayout>
     )
 }
 

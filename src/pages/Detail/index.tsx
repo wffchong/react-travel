@@ -8,6 +8,7 @@ import { commentMockData } from './mockup'
 import { getProductDetail } from '../../store/modules/productDetail'
 import { useDispatch } from 'react-redux'
 import { useSelector } from '../../store/hooks/useSelector'
+import MainLayout from '../../layouts/MainLayout'
 
 type MatchParams = {
     touristRouteId: string
@@ -46,8 +47,7 @@ const DetailPage: React.FC = () => {
     }
 
     return (
-        <>
-            <Header />
+        <MainLayout>
             <div className={styles['page-content']}>
                 {/* 产品简介 与 日期选择 */}
                 <div className={styles['product-intro-container']}>
@@ -117,8 +117,7 @@ const DetailPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
-        </>
+        </MainLayout>
     )
 }
 
